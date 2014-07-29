@@ -5,6 +5,11 @@ import argparse
 
 
 def mri_to_png(mri_file, png_file):
+    """ Function to convert from a DICOM image to png
+
+        @param mri_file: An opened file like object to read te dicom data
+        @param png_file: An opened file like object to write the png data
+    """
 
     # Extracting data from the mri file
     plan = dicom.read_file(mri_file)
@@ -49,7 +54,7 @@ def convert_file(mri_file_path, png_file_path):
     if os.path.exists(png_file_path):
         raise Exception('File "%s" already exists' % png_file_path)
 
-    mri_file = open(mri_file_path, 'r')
+    mri_file = open(mri_file_path, 'rb')
     png_file = open(png_file_path, 'wb')
 
     mri_to_png(mri_file, png_file)
@@ -59,7 +64,7 @@ def convert_file(mri_file_path, png_file_path):
 
 def convert_folder(mri_folder, png_folder):
     """ Convert all MRI files in a folder to png files
-        in a destinaiton folder
+        in a destination folder
     """
     os.makedirs(png_folder)
     for mri_file in os.listdir(mri_folder):
@@ -71,9 +76,9 @@ def convert_folder(mri_folder, png_folder):
         except:
             print 'FAIL>', mri_file_path, '-->', png_file_path
 
+
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description="Convert a dicom MRI file to png",
-                                     usage='mritopng.py [path to dicom file] [path to png file]')
+    parser = argparse.ArgumentParser(description="Convert a dicom MRI file to png")
     parser.add_argument('mri_file', help='Full path to the mri file')
     parser.add_argument('png_file', help='Full path to the generated png file')
 
