@@ -66,21 +66,42 @@ def convert_folder(mri_folder, png_folder):
     """ Convert all MRI files in a folder to png files
         in a destination folder
     """
+
+    # Create the folder for the pnd directory structure
     os.makedirs(png_folder)
-    for mri_file in os.listdir(mri_folder):
-        mri_file_path = os.path.join(mri_folder, mri_file)
-        png_file_path = os.path.join(png_folder, '%s.png' % mri_file)
-        try:
-            convert_file(mri_file_path, png_file_path)
-            print mri_file_path, '-->', png_file_path
-        except:
-            print 'FAIL>', mri_file_path, '-->', png_file_path
+
+    # Recursively traverse all sub-folders in the path
+    for mri_sub_folder, subdirs, files in os.walk(mri_folder):
+        for mri_file in os.listdir(mri_sub_folder):
+            mri_file_path = os.path.join(mri_sub_folder, mri_file)
+
+            # Make sure path is an actual file
+            if os.path.isfile(mri_file_path):
+
+                # Replicate the original file structure
+                rel_path = os.path.relpath(mri_sub_folder, mri_folder)
+                png_folder_path = os.path.join(png_folder, rel_path)
+                if not os.path.exists(png_folder_path):
+                    os.makedirs(png_folder_path)
+                png_file_path = os.path.join(png_folder_path, '%s.png' % mri_file)
+
+                try:
+                    # Convert the actual file
+                    convert_file(mri_file_path, png_file_path)
+                    print 'SUCCESS>', mri_file_path, '-->', png_file_path
+                except Exception as e:
+                    print 'FAIL>', mri_file_path, '-->', png_file_path, ':', e
 
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="Convert a dicom MRI file to png")
-    parser.add_argument('mri_file', help='Full path to the mri file')
-    parser.add_argument('png_file', help='Full path to the generated png file')
+    parser.add_argument('-f', action='store_true')
+    parser.add_argument('dicom_path', help='Full path to the mri file')
+    parser.add_argument('png_path', help='Full path to the generated png file')
 
     args = parser.parse_args()
-    convert_file(args.mri_file, args.png_file)
+    print args
+    if args.f:
+        convert_folder(args.dicom_path, args.png_path)
+    else:
+        convert_file(args.dicom_path, args.png_path)
