@@ -1,13 +1,14 @@
-MRI To PNG (mritopng)
-=====================
+Convert DICOM Files to PNG
+==========================
 
-A simple python module to make it easy to batch convert a binary MRI file to a PNG image.
+A simple python module to make it easy to batch convert a binary DICOM file, which is usually an output from
+an MRI scan to a PNG image.
 
-The MRI shops hand you a CD containing your MRI scans. This CD will typically not contain
-any image files that can be opened up by your defaul image viewing program. The files that
-are on the CD can only be viewed using the software on the CD only on a Windows machine.
+The MRI scanning facilities hand you a CD containing your MRI scans. This CD will typically not contain
+any image files that can be opened up by your default image viewing program. The CD contains a list of DICOM files,
+which can only be viewed by the included viewer, which is mostly only supported on a Windows machine.
 
-This module should help you convert all the scans to PNG files.
+This module should help you convert all the DICOM based scans to PNG files.
 
 Important
 ---------
