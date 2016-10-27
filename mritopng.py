@@ -34,7 +34,7 @@ def mri_to_png(mri_file, png_file):
         image_2d_scaled.append(row_scaled)
 
     # Writing the PNG file
-    w = png.Writer(shape[0], shape[1], greyscale=True)
+    w = png.Writer(shape[1], shape[0], greyscale=True)
     w.write(png_file, image_2d_scaled)
 
 
