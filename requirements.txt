@@ -1,3 +1,0 @@
-pypng
-pydicom
-numpy
