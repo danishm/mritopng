@@ -1,3 +1,6 @@
+""" A module to define the `mritopng` command line executable which is
+to be included in the `scripts` folder of the python install
+"""
 import argparse
 
 from . import convert_folder, convert_file
@@ -15,3 +18,7 @@ def main():
         convert_folder(args.dicom_path, args.png_path)
     else:
         convert_file(args.dicom_path, args.png_path)
+
+if __name__ == '__main__':
+    main()
+        

@@ -1,7 +1,9 @@
+# -*- coding: utf-8 -*-
+"""Setup module for mritopng"""
 from setuptools import setup
 
-
 def readme():
+    """Function to extract readme text from the README.rst file"""
     with open('README.rst') as f:
         return f.read()
 
@@ -30,6 +32,6 @@ setup(
         'pydicom'
     ],
     entry_points={
-        'console_scripts': ['mritopng:mritopng.command_line:main'],
+        'console_scripts': ['mritopng = mritopng.__main__:main'],
     }
 )
