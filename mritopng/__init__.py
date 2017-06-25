@@ -20,7 +20,8 @@ def mri_to_png(mri_file, png_file):
         pixels = []
         for col in row:
             pixels.append(col)
-            if col > max_val: max_val = col
+            if col > max_val:
+                max_val = col
         image_2d.append(pixels)
 
     # Rescaling grey scale between 0-255
@@ -87,6 +88,6 @@ def convert_folder(mri_folder, png_folder):
                 try:
                     # Convert the actual file
                     convert_file(mri_file_path, png_file_path)
-                    print('SUCCESS>', mri_file_path, '-->', png_file_path)
+                    print('SUCCESS: %s --> %s' % (mri_file_path, png_file_path))
                 except Exception as e:
-                    print('FAIL>', mri_file_path, '-->', png_file_path, ':', e)
+                    print('FAIL: %s --> %s : %s' % (mri_file_path, png_file_path, e))

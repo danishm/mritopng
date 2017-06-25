@@ -13,7 +13,6 @@ def main():
     parser.add_argument('png_path', help='Full path to the generated png file')
 
     args = parser.parse_args()
-    print(args)
     if args.f:
         convert_folder(args.dicom_path, args.png_path)
     else:
