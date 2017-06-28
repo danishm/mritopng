@@ -1,7 +1,6 @@
 import os
 import png
 import dicom
-import argparse
 
 
 def mri_to_png(mri_file, png_file):
@@ -21,7 +20,8 @@ def mri_to_png(mri_file, png_file):
         pixels = []
         for col in row:
             pixels.append(col)
-            if col > max_val: max_val = col
+            if col > max_val:
+                max_val = col
         image_2d.append(pixels)
 
     # Rescaling grey scale between 0-255
@@ -88,20 +88,6 @@ def convert_folder(mri_folder, png_folder):
                 try:
                     # Convert the actual file
                     convert_file(mri_file_path, png_file_path)
-                    print 'SUCCESS>', mri_file_path, '-->', png_file_path
+                    print('SUCCESS: %s --> %s' % (mri_file_path, png_file_path))
                 except Exception as e:
-                    print 'FAIL>', mri_file_path, '-->', png_file_path, ':', e
-
-
-if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description="Convert a dicom MRI file to png")
-    parser.add_argument('-f', action='store_true')
-    parser.add_argument('dicom_path', help='Full path to the mri file')
-    parser.add_argument('png_path', help='Full path to the generated png file')
-
-    args = parser.parse_args()
-    print args
-    if args.f:
-        convert_folder(args.dicom_path, args.png_path)
-    else:
-        convert_file(args.dicom_path, args.png_path)
+                    print('FAIL: %s --> %s : %s' % (mri_file_path, png_file_path, e))
