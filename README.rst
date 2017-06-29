@@ -1,7 +1,7 @@
 `mritopng` - Convert DICOM Files to PNG
 =======================================
 
-|Build Status| |License|
+|Build Status| |License|_
 
 A simple python module to make it easy to batch convert a binary DICOM file, which is usually an output from
 an MRI scan to a PNG image.
@@ -21,3 +21,4 @@ on the PNG file.
 
 .. |Build Status| image:: https://circleci.com/gh/danishm/mritopng.svg?style=shield&circle-token=:circle-token=fdde06fc18401432d1cd84538a88678dd81584ad
 .. |License| image:: https://img.shields.io/badge/License-MIT-yellow.svg
+.. _License: https://opensource.org/licenses/MIT
