@@ -9,11 +9,11 @@ def readme():
 
 setup(
     name='mritopng',
-    version='2',
+    version='2.0',
     description='Easily convert MRI filed based on the DICOM format to a PNG image',
     long_description=readme(),
     classifiers=[
-        'Development Status :: 3 - Alpha',
+        'Development Status :: 4 - Beta',
         'License :: OSI Approved :: MIT License',
         'Programming Language :: Python :: 3',
         'Topic :: Multimedia :: Graphics :: Graphics Conversion',
