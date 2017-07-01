@@ -29,7 +29,8 @@ setup(
     zip_safe=False,
     install_requires=[
         'pypng',
-        'pydicom'
+        'pydicom',
+        'numpy'
     ],
     entry_points={
         'console_scripts': ['mritopng = mritopng.__main__:main'],
