@@ -16,3 +16,6 @@
 
 # Documentation
 docs/build
+
+# Build
+build/

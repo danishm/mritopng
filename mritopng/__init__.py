@@ -29,7 +29,8 @@ def mri_to_png(mri_file, png_file):
     for row in image_2d:
         row_scaled = []
         for col in row:
-            col_scaled = int((float(col) / float(max_val)) * 255.0)
+            # cliping pixel value if below 0
+            col_scaled = int((float(max(col, 0)) / float(max_val)) * 255.0)
             row_scaled.append(col_scaled)
         image_2d_scaled.append(row_scaled)
 
