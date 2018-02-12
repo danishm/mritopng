@@ -20,8 +20,8 @@ def mri_to_png(mri_file, png_file):
     # Rescaling grey scale between 0-255
     image_2d_scaled = ( image_2d / image_2d.max() ) * 255.0
     
-    #Convert to uint8
-    image_2d_scaled = np.uint8(image_2d_scaled)
+    #Convert to int to handle negative values as well
+    image_2d_scaled = image_2d_scaled.astype(int)
 
     # Writing the PNG file
     w = png.Writer(shape[1], shape[0], greyscale=True)
