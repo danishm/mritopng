@@ -18,7 +18,7 @@ def mri_to_png(mri_file, png_file):
     image_2d = plan.pixel_array.astype(float)
 
     # Rescaling grey scale between 0-255
-    image_2d_scaled = ( np.maximum(image_2d,0) / image_2d.max() ) * 255.0
+    image_2d_scaled = (np.maximum(image_2d,0) / image_2d.max()) * 255.0
     
     #Convert to uint
     image_2d_scaled = np.uint8(image_2d_scaled)
