@@ -1,7 +1,7 @@
 import os
 import png
 import dicom
-
+import numpy as np
 
 def mri_to_png(mri_file, png_file):
     """ Function to convert from a DICOM image to png
@@ -14,25 +14,14 @@ def mri_to_png(mri_file, png_file):
     plan = dicom.read_file(mri_file)
     shape = plan.pixel_array.shape
 
-    image_2d = []
-    max_val = 0
-    for row in plan.pixel_array:
-        pixels = []
-        for col in row:
-            pixels.append(col)
-            if col > max_val:
-                max_val = col
-        image_2d.append(pixels)
+    #Convert to float to avoid overflow or underflow losses.
+    image_2d = plan.pixel_array.astype(float)
 
     # Rescaling grey scale between 0-255
-    image_2d_scaled = []
-    for row in image_2d:
-        row_scaled = []
-        for col in row:
-            # cliping pixel value if below 0
-            col_scaled = int((float(max(col, 0)) / float(max_val)) * 255.0)
-            row_scaled.append(col_scaled)
-        image_2d_scaled.append(row_scaled)
+    image_2d_scaled = ( image_2d / image_2d.max() ) * 255.0
+    
+    #Convert to uint8
+    image_2d_scaled = np.uint8(image_2d_scaled)
 
     # Writing the PNG file
     w = png.Writer(shape[1], shape[0], greyscale=True)
