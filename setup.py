@@ -29,7 +29,7 @@ setup(
     zip_safe=False,
     install_requires=[
         'pypng',
-        'pydicom',
+        'pydicom>=1.0.0',
         'numpy'
     ],
     entry_points={
