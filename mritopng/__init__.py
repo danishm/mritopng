@@ -1,6 +1,6 @@
 import os
 import png
-import dicom
+import pydicom
 import numpy as np
 
 def mri_to_png(mri_file, png_file):
@@ -11,7 +11,7 @@ def mri_to_png(mri_file, png_file):
     """
 
     # Extracting data from the mri file
-    plan = dicom.read_file(mri_file)
+    plan = pydicom.read_file(mri_file)
     shape = plan.pixel_array.shape
 
     #Convert to float to avoid overflow or underflow losses.

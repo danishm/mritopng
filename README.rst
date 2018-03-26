@@ -36,10 +36,16 @@ It's pretty easy to get up and running with :code:`mritopng` in your own project
 
 Installation
 ------------
+
+To have known to work dependencies use beforehand::
+
+    pip install -r requirements.txt
+
 :code:`mritopng` comes with a :code:`setup.py` script to use with distutils. After unpacking the distribution, `cd` into the
 directory and execute the command::
 
     python setup.py install
+
 
 This will install two things
 
