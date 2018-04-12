@@ -2,7 +2,7 @@ import os
 import png
 import pydicom
 import numpy as np
-from models import GrayscaleImage
+from .models import GrayscaleImage
 
 def mri_to_png(mri_file, png_file):
     """ Function to convert from a DICOM image to png
