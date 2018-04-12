@@ -85,5 +85,13 @@ class TestMRIToPNG(unittest.TestCase):
         image = mritopng.GrayscaleImage(image_2d, 4, 4)
 
         result = contrast.auto_contrast(image)
-        print(result.image)
-        raise Exception("test failed")
+
+        expected = np.array([
+            [0, 0, 127, 127],
+            [127, 127, 127, 127],
+            [127, 255, 255, 127],
+            [127, 127, 127, 25]
+        ])
+
+        if not np.array_equal(result.image, expected):
+            raise Exception("Expected:\n%s\n\nActual:\n%s\n"%(expected, result.image))
