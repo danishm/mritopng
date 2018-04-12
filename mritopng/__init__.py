@@ -3,6 +3,13 @@ import png
 import pydicom
 import numpy as np
 
+class GrayscaleImage(object):
+    
+    def __init__(self, image, width, height):
+        self.image = image
+        self.width = width
+        self.height = height
+
 def mri_to_png(mri_file, png_file):
     """ Function to convert from a DICOM image to png
 
@@ -10,6 +17,13 @@ def mri_to_png(mri_file, png_file):
         @param png_file: An opened file like object to write the png data
     """
 
+    image_2d = extract_grayscale_image(mri_file)
+
+    # Writing the PNG file
+    w = png.Writer(image_2d.width, image_2d.height, greyscale=True)
+    w.write(png_file, image_2d.image)
+
+def extract_grayscale_image(mri_file):
     # Extracting data from the mri file
     plan = pydicom.read_file(mri_file)
     shape = plan.pixel_array.shape
@@ -23,9 +37,7 @@ def mri_to_png(mri_file, png_file):
     #Convert to uint
     image_2d_scaled = np.uint8(image_2d_scaled)
 
-    # Writing the PNG file
-    w = png.Writer(shape[1], shape[0], greyscale=True)
-    w.write(png_file, image_2d_scaled)
+    return GrayscaleImage(image_2d_scaled, shape[1], shape[0])
 
 
 def convert_file(mri_file_path, png_file_path):
