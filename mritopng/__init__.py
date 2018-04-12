@@ -3,8 +3,9 @@ import png
 import pydicom
 import numpy as np
 from .models import GrayscaleImage
+from .contrast import auto_contrast
 
-def mri_to_png(mri_file, png_file):
+def mri_to_png(mri_file, png_file, auto_contrast=False):
     """ Function to convert from a DICOM image to png
 
         @param mri_file: An opened file like object to read te dicom data
@@ -12,6 +13,9 @@ def mri_to_png(mri_file, png_file):
     """
 
     image_2d = extract_grayscale_image(mri_file)
+
+    if auto_contrast:
+        image_2d = auto_contrast(image_2d)
 
     # Writing the PNG file
     w = png.Writer(image_2d.width, image_2d.height, greyscale=True)
@@ -34,7 +38,7 @@ def extract_grayscale_image(mri_file):
     return GrayscaleImage(image_2d_scaled, shape[1], shape[0])
 
 
-def convert_file(mri_file_path, png_file_path):
+def convert_file(mri_file_path, png_file_path, auto_contrast=False):
     """ Function to convert an MRI binary file to a
         PNG image file.
 
@@ -53,7 +57,7 @@ def convert_file(mri_file_path, png_file_path):
     mri_file = open(mri_file_path, 'rb')
     png_file = open(png_file_path, 'wb')
 
-    mri_to_png(mri_file, png_file)
+    mri_to_png(mri_file, png_file, auto_contrast)
 
     png_file.close()
 
