@@ -2,13 +2,7 @@ import os
 import png
 import pydicom
 import numpy as np
-
-class GrayscaleImage(object):
-    
-    def __init__(self, image, width, height):
-        self.image = image
-        self.width = width
-        self.height = height
+from models import GrayscaleImage
 
 def mri_to_png(mri_file, png_file):
     """ Function to convert from a DICOM image to png

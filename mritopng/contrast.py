@@ -1,5 +1,5 @@
 import numpy as np
-from . import GrayscaleImage
+from models import GrayscaleImage
 
 def histogram(image):
     
