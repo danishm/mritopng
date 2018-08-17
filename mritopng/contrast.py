@@ -31,11 +31,12 @@ def auto_contrast(image):
         https://stackoverflow.com/questions/9744255/instagram-lux-effect/9761841#9761841
     """
     hist = histogram(image)
-    p5 = shade_at_percentile(hist, 0.05)
-    p95 = shade_at_percentile(hist, 0.95)
+    p5 = shade_at_percentile(hist, .01)
+    p95 = shade_at_percentile(hist, .99)
     a = 255.0/(p95 + p5)
     b = -1.0 * a * p5
 
     result = (image.image.astype(float) * a) + b
+    result = result.clip(0, 255.0)
     
     return GrayscaleImage(np.uint8(result), image.width, image.height)
