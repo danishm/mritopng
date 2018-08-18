@@ -14,7 +14,7 @@ from mritopng import contrast
 
 
 test_out_path = os.path.abspath(os.path.join(os.path.dirname( __file__ ), '..', 'build', 'test'))
-shutil.rmtree(test_out_path)
+shutil.rmtree(test_out_path, ignore_errors=True)
 os.makedirs(test_out_path)
 class TestMRIToPNG(unittest.TestCase):
     """ Basic tests for mritopng """
