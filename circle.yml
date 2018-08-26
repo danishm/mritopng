@@ -20,7 +20,7 @@ jobs:
           name: Run Tests
           command: |
             . venv/bin/activate
-            nosetests --with-xunit --xunit-file=build/test/junit-report.xml
+            nosetests --with-xunit --xunit-file=build/test/test-results.xml
       
       - store_test_results:
           path: ~/build/test
