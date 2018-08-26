@@ -23,7 +23,7 @@ jobs:
             nosetests --with-xunit --xunit-file=build/test/test-results.xml
       
       - store_test_results:
-          path: ~/build/test
+          path: ~/mritopng/build/test
       
       - store_artifacts:
-          path: ~/build/test
+          path: ~/mritopng/build/test
