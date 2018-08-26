@@ -82,14 +82,15 @@ class TestMRIToPNG(unittest.TestCase):
             # Try the file conversion
             try:
                 print('>>> Here')
-                mritopng.convert_file(sample_path, actual_path, do_auto_contrast=True)
+                mritopng.convert_file(sample_path, actual_path, auto_contrast=True)
                 print('<<<')
             except Exception as err:
                 traceback.print_exc(file=sys.stdout)
                 self.fail('%s' % err)
-            
-           # self.assertTrue(filecmp.cmp(actual_path, expected_path),
-           #                 'PNG generated from dicom1 does not match the expected version')
+
+            # TODO: Make sure we compare against expected results
+            # self.assertTrue(filecmp.cmp(actual_path, expected_path),
+            #                 'PNG generated from dicom1 does not match the expected version')
 
     
     def test_contrast_histogram(self):
