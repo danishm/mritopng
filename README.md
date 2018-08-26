@@ -60,7 +60,8 @@ optional arguments:
 ### Convert Single File
 
 ```sh
-# Converts the file /DICOM/SCAN1 to a file called output.png, while applying auto contrast
+# Converts the file /DICOM/SCAN1 to a file called output.png,
+# while applying auto contrast
 $ mritopng --auto-contrast /DICOM/SCAN1 output.png
 ```
 
@@ -71,7 +72,8 @@ $ mritopng --auto-contrast /DICOM/SCAN1 output.png
 The utility can also be used to convert a whole folder recursively by using the `-f` option::
 
 ```sh
-# Takes all the files in /DICOM, converts the files to png and puts them in the /PNG folder with the same structure as /DICOM. 
+# Takes all the files in /DICOM, converts the files to png and
+# puts them in the /PNG folder with the same structure as /DICOM. 
 $ mritopng -f /DICOM /PNG
 ```
 
@@ -87,8 +89,8 @@ It's pretty easy to get up and running with `mritopng` in your own project
 ```py
 import mritopng
 
-# Convert a since file
-mritopng.convert_file('/home/user/DICOM/SCAN1', '/home/user/output.png')
+# Convert a single file with auto-contrast
+mritopng.convert_file('/home/user/DICOM/SCAN1', '/home/user/output.png', auto_contrast=True)
 
 # Convert a whole folder recursively
 mritopng.convert_folder('/home/user/DICOM/', '/home/user/PNG/')
