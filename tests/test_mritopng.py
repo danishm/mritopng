@@ -74,7 +74,7 @@ class TestMRIToPNG(unittest.TestCase):
         for case in cases:
             
             sample_path = os.path.join(curr_path, 'data', 'samples', case)
-            expected_path = os.path.join(curr_path, 'data', 'expected', case + '.png')
+            expected_path = os.path.join(curr_path, 'data', 'expected', 'auto-contrast', case + '.png')
             actual_path = os.path.join(test_out_path, 'auto-contrast', case + '.png')
 
             print('Actual File Path: %s' % actual_path)
@@ -88,9 +88,8 @@ class TestMRIToPNG(unittest.TestCase):
                 traceback.print_exc(file=sys.stdout)
                 self.fail('%s' % err)
 
-            # TODO: Make sure we compare against expected results
-            # self.assertTrue(filecmp.cmp(actual_path, expected_path),
-            #                 'PNG generated from dicom1 does not match the expected version')
+            self.assertTrue(filecmp.cmp(actual_path, expected_path),
+                            'PNG generated from dicom1 does not match the expected version')
 
     
     def test_contrast_histogram(self):
