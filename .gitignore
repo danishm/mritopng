@@ -19,3 +19,6 @@ docs/build
 
 # Build
 build/
+
+# VSCode
+.vscode

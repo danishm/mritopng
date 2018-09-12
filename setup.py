@@ -9,7 +9,7 @@ def readme():
 
 setup(
     name='mritopng',
-    version='2.1',
+    version='2.2',
     description='Easily convert MRI filed based on the DICOM format to a PNG image',
     long_description=readme(),
     classifiers=[

@@ -2,14 +2,26 @@ import os
 import png
 import pydicom
 import numpy as np
+from .models import GrayscaleImage
+from .contrast import auto_contrast
 
-def mri_to_png(mri_file, png_file):
+def mri_to_png(mri_file, png_file, do_auto_contrast=False):
     """ Function to convert from a DICOM image to png
 
         @param mri_file: An opened file like object to read te dicom data
         @param png_file: An opened file like object to write the png data
     """
 
+    image_2d = extract_grayscale_image(mri_file)
+
+    if do_auto_contrast:
+        image_2d = auto_contrast(image_2d)
+
+    # Writing the PNG file
+    w = png.Writer(image_2d.width, image_2d.height, greyscale=True)
+    w.write(png_file, image_2d.image)
+
+def extract_grayscale_image(mri_file):
     # Extracting data from the mri file
     plan = pydicom.read_file(mri_file)
     shape = plan.pixel_array.shape
@@ -23,12 +35,10 @@ def mri_to_png(mri_file, png_file):
     #Convert to uint
     image_2d_scaled = np.uint8(image_2d_scaled)
 
-    # Writing the PNG file
-    w = png.Writer(shape[1], shape[0], greyscale=True)
-    w.write(png_file, image_2d_scaled)
+    return GrayscaleImage(image_2d_scaled, shape[1], shape[0])
 
 
-def convert_file(mri_file_path, png_file_path):
+def convert_file(mri_file_path, png_file_path, auto_contrast=False):
     """ Function to convert an MRI binary file to a
         PNG image file.
 
@@ -38,21 +48,22 @@ def convert_file(mri_file_path, png_file_path):
 
     # Making sure that the mri file exists
     if not os.path.exists(mri_file_path):
-        raise Exception('File "%s" does not exists' % mri_file_path)
+        raise Exception('Source file "%s" does not exists' % mri_file_path)
 
     # Making sure the png file does not exist
     if os.path.exists(png_file_path):
-        raise Exception('File "%s" already exists' % png_file_path)
+        print('Removing existing output file %s' % png_file_path)
+        os.remove(png_file_path)
 
     mri_file = open(mri_file_path, 'rb')
     png_file = open(png_file_path, 'wb')
 
-    mri_to_png(mri_file, png_file)
+    mri_to_png(mri_file, png_file, auto_contrast)
 
     png_file.close()
 
 
-def convert_folder(mri_folder, png_folder):
+def convert_folder(mri_folder, png_folder, auto_contrast=False):
     """ Convert all MRI files in a folder to png files
         in a destination folder
     """
@@ -77,7 +88,7 @@ def convert_folder(mri_folder, png_folder):
 
                 try:
                     # Convert the actual file
-                    convert_file(mri_file_path, png_file_path)
+                    convert_file(mri_file_path, png_file_path, auto_contrast)
                     print('SUCCESS: %s --> %s' % (mri_file_path, png_file_path))
                 except Exception as e:
                     print('FAIL: %s --> %s : %s' % (mri_file_path, png_file_path, e))

@@ -1,3 +1,29 @@
-machine:
-  post:
-    - pyenv global 2.7.12 3.4.4
+version: 2
+
+jobs:
+  
+  build:
+    working_directory: ~/mritopng
+    docker:
+      - image: circleci/python:3.6.1
+    steps:
+      - checkout
+
+      - run:
+          name: Setup Python Environment
+          command: |
+            python3 -m venv venv
+            . venv/bin/activate
+            pip install -r requirements.txt
+      
+      - run:
+          name: Run Tests
+          command: |
+            . venv/bin/activate
+            nosetests --with-xunit --xunit-file=build/test/test-results.xml
+      
+      - store_test_results:
+          path: ~/mritopng/build/test
+      
+      - store_artifacts:
+          path: ~/mritopng/build/test
