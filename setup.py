@@ -4,7 +4,7 @@ from setuptools import setup
 
 def readme():
     """Function to extract readme text from the README.rst file"""
-    with open('README.rst') as f:
+    with open('README.md') as f:
         return f.read()
 
 setup(
