@@ -136,8 +136,8 @@ class TestMRIToPNG(unittest.TestCase):
 
         mritopng.convert_folder(mri_dir_path, png_dir_path)
         
-        valid_files = ['dicom1.png', '000012.dcm.png', '000017.dcm.png']
-        converted_files = os.listdir(png_dir_path)
+        valid_files = {'dicom1.png', '000012.dcm.png', '000017.dcm.png'}
+        converted_files = set(os.listdir(png_dir_path))
 
         # cleanup before assertion.
         shutil.rmtree(png_dir_path)
