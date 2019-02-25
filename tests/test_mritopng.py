@@ -128,3 +128,17 @@ class TestMRIToPNG(unittest.TestCase):
 
         if not np.array_equal(result.image, expected):
             raise Exception("Expected:\n%s\n\nActual:\n%s\n"%(expected, result.image))
+
+    def test_folder_convert(self):
+        curr_path = os.path.dirname(os.path.realpath(__file__))
+        mri_dir_path = os.path.join(curr_path, 'data', 'samples')
+        png_dir_path = os.path.join(curr_path, 'data', 'png_dir')
+
+        mritopng.convert_folder(mri_dir_path, png_dir_path)
+        
+        valid_files = ['dicom1.png', '000012.dcm.png', '000017.dcm.png']
+        converted_files = os.listdir(png_dir_path)
+
+        # cleanup before assertion.
+        shutil.rmtree(png_dir_path)
+        self.assertEqual(valid_files, converted_files, 'Invalid dicom left a stray png file.')
