@@ -92,4 +92,4 @@ def convert_folder(mri_folder, png_folder, auto_contrast=False):
                     print('SUCCESS: %s --> %s' % (mri_file_path, png_file_path))
                 except Exception as e:
                     print('FAIL: %s --> %s : %s' % (mri_file_path, png_file_path, e))
-                    os.remove(png_file_path)
+                    os.remove(png_file_path) if os.path.exists(png_file_path) else None
