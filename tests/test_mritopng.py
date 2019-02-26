@@ -96,10 +96,10 @@ class TestMRIToPNG(unittest.TestCase):
         curr_path = os.path.dirname(os.path.realpath(__file__))
         sample_path = os.path.join(curr_path, 'data', 'samples', '000017.dcm')
         image = mritopng.extract_grayscale_image(sample_path)
-        histogram = contrast.histogram(image)
+        histogram, _ = np.histogram(image.image.ravel(), np.arange(0,256))
 
-        for shade in histogram:
-            print('%d\t%d' % (shade, histogram[shade]))
+        for bin, shade in enumerate(histogram):
+            print('%d\t%d' % (shade, histogram[bin]))
         
         a = contrast.shade_at_percentile(histogram, 0.05)
         b = contrast.shade_at_percentile(histogram, 0.95)
