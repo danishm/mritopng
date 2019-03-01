@@ -15,10 +15,10 @@ def auto_contrast(image):
         https://stackoverflow.com/questions/9744255/instagram-lux-effect/9761841#9761841
     """
     hist, _ = np.histogram(image.image.ravel(), bins=np.arange(0, 256))
-    p5 = shade_at_percentile(hist, .01)
-    p95 = shade_at_percentile(hist, .99)
-    a = 255.0/(p95 + p5)
-    b = -1.0 * a * p5
+    p01 = shade_at_percentile(hist, .01)
+    p99 = shade_at_percentile(hist, .99)
+    a = 255.0/(p99 + p01)
+    b = -1.0 * a * p01
 
     result = (image.image.astype(float) * a) + b
     result = result.clip(0, 255.0)
