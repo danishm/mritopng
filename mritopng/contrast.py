@@ -17,7 +17,7 @@ def auto_contrast(image):
     hist, _ = np.histogram(image.image.ravel(), bins=np.arange(0, 256))
     p01 = shade_at_percentile(hist, .01)
     p99 = shade_at_percentile(hist, .99)
-    a = 255.0/(p99 + p01)
+    a = 255.0/(p99 - p01)
     b = -1.0 * a * p01
 
     result = (image.image.astype(float) * a) + b
